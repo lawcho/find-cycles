@@ -125,7 +125,8 @@ v2el (_,_,_,_,_,el,_) = el
 
 -- Load HieDb from file (creating file if does not exist)
 getOrCreateGraph :: FilePath -> HieDb -> IO (AdjacencyMap HieDb.Vertex)
-getOrCreateGraph hieDir db = do
+getOrCreateGraph hieDir db = do 
+    initConn db
     g0 <- getGraph db
     if g0 /= AdjacencyMap.empty then return g0 else do
         putStrLn $ "Graph empty, loading hiefiles from " ++ show hieDir
