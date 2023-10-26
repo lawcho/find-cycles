@@ -1,0 +1,19 @@
+cabal-version: >= 2.0
+version: 1.0.20231026
+name:       find-cycles
+synopsis:   Script to find cross-module declaration cycles
+author:     Lawrence Chonavel
+build-type: Simple
+
+executable find-cycles
+  main-is:          FindCycles.hs
+  default-language: Haskell2010
+  build-depends:
+      aeson
+    , algebraic-graphs
+    , base
+    , containers
+    , hiedb
+    , interpolatedstring-perl6
+    , optparse-applicative
+    , text
