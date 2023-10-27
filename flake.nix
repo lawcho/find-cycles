@@ -3,16 +3,18 @@
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      ghc_version = "ghc927";
-      # ghc_version = "ghc928"; # Tested 26 Oct 2023, builds fast
-      # ghc_version = "ghc927"; # Tested 26 Oct 2023, builds slowly (120 dependencies from source)
+      all_ghc_versions = nixpkgs.lib.attrNames nixpkgs.legacyPackages.${system}.haskell.packages;
     in
     {
-      # Default behaviour of 'nix build' is like 'cabal build'
-      # (but with haskell libraries from the nixpkgs snapshot)
-      packages.${system}.default =
-        nixpkgs.legacyPackages.${system}.haskell.packages.${ghc_version}.developPackage {
-          root = ./.;
-        };
+      packages.${system} = (
+        # Build the an output for each version of GHC in the nixpkgs snapshot
+        nixpkgs.lib.attrsets.genAttrs all_ghc_versions (ghc_version:
+          # Use 'cabal build' to compile the Haskell
+          # (but with GHC & haskell libraries from the nixpkgs snapshot)
+          nixpkgs.legacyPackages.${system}.haskell.packages.${ghc_version}.developPackage {
+            root = ./.;
+          }
+        )
+      );
     };
 }

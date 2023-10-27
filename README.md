@@ -1,10 +1,6 @@
 
 # `find-cycles` - analyse dependency cycles in Haskell source code
 
-## Build
-
-`nix build`
-
 ## Usage
 
 ### Generate `.hie` files
@@ -15,7 +11,7 @@ For more information on generating `.hie` files, see [this GHC blog post](https:
 
 ### Process `.hie` files with `find-cycles`
 
-See `find-cycles --help`
+See `nix run <path or URL to this repository>#ghc927 -- --help`
 
 ### View generated `.html` files
 
@@ -29,8 +25,18 @@ No web server needed.
 
 `find-cycles` must be compiled with the same GHC version that generated the `.hie` files.
 
-You can achieve this by changing the version of GHC in the`flake.nix` file, and rebuilding `find-cycles`
-
-N.B. this might result in a slow build time for some GHC versions (e.g. `ghc927`) which do not have pre-built packages cached online.
+Update the `#ghcXXX` part of your `nix build` or `nix run` invocation.
 
 For more information on the backwards-(in)compatability of `.hie` files, see [this GHC ticket](https://gitlab.haskell.org/ghc/ghc/-/issues/18329)
+
+### `nix run .#ghcXXX` is slow for some values of `XXX`
+
+For versions of GHC without packages cached online in nixpkgs, `nix` must recompile all the Haskell depndencies of `find-cycles` from scratch.
+
+You can pre-compile a batch of several versions with `nix build .#ghcXXX .#ghcYYY .#ghcZZZ ...`
+
+After this completes, `nix run` will be instant for those versions.
+
+## Development
+
+`nix build #ghcXXX` type-checks & compiles with GHC version XXX
