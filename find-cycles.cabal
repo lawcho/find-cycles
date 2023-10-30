@@ -1,5 +1,5 @@
 cabal-version: >= 2.0
-version: 1.0.20231026
+version: 1.0.20231030
 name:       find-cycles
 synopsis:   Script to find cross-module declaration cycles
 author:     Lawrence Chonavel
@@ -13,7 +13,11 @@ executable find-cycles
     , algebraic-graphs
     , base
     , containers
+    , file-embed
     , hiedb
     , interpolatedstring-perl6
     , optparse-applicative
     , text
+  extra-source-files:
+      style.css
+

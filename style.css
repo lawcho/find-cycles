@@ -1,0 +1,51 @@
+html,body,#chart {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  z-index: -1;
+}
+#legend {
+  position: absolute;
+  display:block;
+  top: 0%;
+  right: 0%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+#legend summary {
+  text-align: right;
+}
+#legend span {
+  margin-right: 1ch;
+  font-family: monospace;
+}
+#legend .highlighted {
+  background: yellow;
+}
+#edges {
+  stroke: grey;
+  stroke-opacity: 0.6;
+  marker-end: url(#arrow);
+}
+#nodes {
+  stroke: white;
+  stroke-width: 1.5;
+  z-index: -1;
+}
+#nodes .highlighted {
+  stroke: yellow;
+}
+#labels {
+  font-family: monospace;
+  white-space: pre-line;  /* Allow multiline SVG text */
+  pointer-events: none;   /* Make labels click-through */
+  font-weight: bold;
+}
+#labels .label {
+  display: none;
+}
+#labels .label.pinned, #labels .label.peeking  {
+  display: block;
+}

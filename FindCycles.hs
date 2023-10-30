@@ -7,6 +7,7 @@
 
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 import Algebra.Graph.AdjacencyMap (AdjacencyMap, edgeList, vertexList)
 import qualified Algebra.Graph.AdjacencyMap as AdjacencyMap
@@ -15,6 +16,8 @@ import qualified Algebra.Graph.NonEmpty.AdjacencyMap as NonEmpty
 import Control.Monad (forM_, when)
 import Data.Aeson (ToJSON)
 import Data.Aeson.Text (encodeToLazyText)
+import Data.FileEmbed (embedStringFile,makeRelativeToProject)
+import Data.Text.Lazy (Text)
 import qualified Data.Text.Lazy.IO as Text
 import Text.InterpolatedString.Perl6
 import Data.Functor ((<&>))
@@ -78,13 +81,19 @@ main = do
             let filepath = "scc" ++ show n ++ ".html"
             Text.writeFile filepath [qq|
 <!DOCTYPE html>
-<link rel="stylesheet" href="style.css"></script>
+<style>
+$stylesheet
+</style>
 <script src="d3.v7.min.js"></script>
 <script src="controller.js"></script>
 <script>
 data = $json
 </script>
         |]
+
+-- Stylesheet for graph viewer widget, loaded at compile-time
+stylesheet :: Text
+stylesheet = $(makeRelativeToProject "style.css" >>= embedStringFile)
 
 -- Convert a graph from algebraic-graphs format to the JSON format
 toD3 :: (Eq v) => (v -> String) -> (v -> String) -> (v -> String) -> AdjacencyMap v -> D3Graph
