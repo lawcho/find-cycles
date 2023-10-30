@@ -84,16 +84,19 @@ main = do
 <style>
 $stylesheet
 </style>
+<script>
+$controller
+</script>
 <script src="d3.v7.min.js"></script>
-<script src="controller.js"></script>
 <script>
 data = $json
 </script>
         |]
 
--- Stylesheet for graph viewer widget, loaded at compile-time
-stylesheet :: Text
+-- Parts of the HTML graph viewer widget, loaded at compiled and printed into every generated html file 
+stylesheet,controller :: Text
 stylesheet = $(makeRelativeToProject "style.css" >>= embedStringFile)
+controller = $(makeRelativeToProject "controller.js" >>= embedStringFile)
 
 -- Convert a graph from algebraic-graphs format to the JSON format
 toD3 :: (Eq v) => (v -> String) -> (v -> String) -> (v -> String) -> AdjacencyMap v -> D3Graph

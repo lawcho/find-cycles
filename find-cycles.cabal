@@ -20,4 +20,5 @@ executable find-cycles
     , text
   extra-source-files:
       style.css
+    , controller.js
 
