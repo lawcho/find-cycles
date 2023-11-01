@@ -11,7 +11,7 @@ For more information on generating `.hie` files, see [this GHC blog post](https:
 
 ### Process `.hie` files with `find-cycles`
 
-See `nix run <path or URL to this repository>#ghc927 -- --help`
+See `nix run github:lawcho/find-cycles#ghc927 -- --help`
 
 ### View generated `.html` files
 
@@ -39,4 +39,4 @@ After this completes, `nix run` will be instant for those versions.
 
 ## Development
 
-`nix build #ghcXXX` type-checks & compiles with GHC version XXX
+`nix build .#ghcXXX` type-checks & compiles with GHC version XXX
