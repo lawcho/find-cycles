@@ -29,13 +29,13 @@ html,body,#chart {
   stroke-opacity: 0.6;
   marker-end: url(#arrow);
 }
-#nodes {
-  stroke: white;
+#nodes path {
   stroke-width: 1.5;
-  z-index: -1;
+  stroke: white;
 }
 #nodes .highlighted {
   stroke: yellow;
+  stroke-width: 1.5;
 }
 #labels {
   font-family: monospace;
