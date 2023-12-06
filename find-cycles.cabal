@@ -14,7 +14,7 @@ executable find-cycles
     , base
     , containers
     , file-embed
-    , hiedb
+    , hiedb < 0.4.4
     , interpolatedstring-perl6
     , optparse-applicative
     , text
